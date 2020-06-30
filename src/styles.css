@@ -1,0 +1,7 @@
+.navMenuHover {
+  color: #ffffff;
+}
+
+.navMenuHover:hover {
+  color: silver;
+}
