@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import Header from './components/Header';
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   return (
     <div>
       <Navbar smDown={smDown} />
+      <Header />
     </div>
   );
 }

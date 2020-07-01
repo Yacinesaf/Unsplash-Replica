@@ -174,7 +174,7 @@ class Navbar extends Component {
                 <Typography onClick={() => this.setState({ anchorEl: null })} variant='caption' style={{ fontWeight: 400, paddingRight: 16, cursor: 'pointer' }}>Help</Typography>
                 <Typography onClick={() => this.setState({ anchorEl: null })} variant='caption' style={{ fontWeight: 400, paddingRight: 16, cursor: 'pointer' }}>License</Typography>
                 <Typography onClick={() => this.setState({ anchorEl: null })} variant='caption' style={{ fontWeight: 400, paddingRight: 16, cursor: 'pointer' }}>Press</Typography>
-                <Typography onClick={() => this.setState({ anchorEl: null })} variant='caption' style={{ fontWeight: 400, paddingRight: 16, cursor: 'pointer' }}>Join the team</Typography>
+                <Typography onClick={() => this.setState({ anchorEl: null })} variant='caption' style={{ fontWeight: 400, cursor: 'pointer' }}>Join the team</Typography>
               </div>
             </Menu>
           </Toolbar>

@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
-export default combineReducers({
+import headerImg from './headerImg'
 
+export default combineReducers({
+  headerImg
 })
