@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { getHeaderImage } from '../reduxStore/actions'
 import { connect } from 'react-redux'
-import { Grid, TextField, Paper, InputBase, Typography } from '@material-ui/core'
+import { Grid, Paper, InputBase, Typography } from '@material-ui/core'
 
 
 class Header extends Component {
@@ -20,12 +20,13 @@ class Header extends Component {
               height: 500,
             }}
           >
+
             <Grid item xs={6}>
-              <Typography style={{color : 'white', fontWeight : 600, paddingBottom : 20}} variant='h3'>Unsplash</Typography>
-              <Typography style={{color : 'white'}} variant='body1'>
+              <Typography style={{ color: 'white', fontWeight: 600 }} variant='h3'>Unsplash</Typography>
+              <Typography style={{ color: 'white' }} variant='body1'>
                 The internet's source of freely-usable images.
-            </Typography>
-              <Typography style={{color : 'white'}} variant='body1'>Powered by creators everywhere</Typography>
+              </Typography>
+              <Typography style={{ color: 'white' }} variant='body1'>Powered by creators everywhere</Typography>
               <Paper style={{ width: 'calc(100% - 40px)', padding: '15px 20px' }}>
                 <InputBase
                   onClick={() => this.setState({ inputClicked: true })}
