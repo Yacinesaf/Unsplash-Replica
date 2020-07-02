@@ -12,7 +12,7 @@ function App() {
   return (
     <div>
       <Navbar smDown={smDown} />
-      <Header />
+      <Header smDown={smDown} />
     </div>
   );
 }

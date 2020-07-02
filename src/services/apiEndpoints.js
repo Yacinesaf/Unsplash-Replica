@@ -3,9 +3,10 @@ import firebaseApp from '../firebase'
 import firebase from 'firebase/app'
 
 const getRandomImg = () => {
-  return axios.get('https://api.unsplash.com/photos/random?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA')
+  return axios.get('https://api.unsplash.com/photos/random?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA&query=nature')
     .then(res => {
-      return res.data.urls.regular
+      console.log("getRandomImg -> res.data", res.data)
+      return res.data
     })
 
 }
