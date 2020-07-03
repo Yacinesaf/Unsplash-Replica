@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import Header from './components/Header';
+import PictureDisplay from './components/PictureDisplay';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <div>
       <Navbar smDown={smDown} />
       <Header smDown={smDown} />
+      <PictureDisplay />
     </div>
   );
 }
