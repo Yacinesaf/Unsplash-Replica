@@ -14,7 +14,7 @@ function App() {
     <div>
       <Navbar smDown={smDown} />
       <Header smDown={smDown} />
-      <PictureDisplay />
+      <PictureDisplay smDown={smDown} />
     </div>
   );
 }

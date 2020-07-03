@@ -5,3 +5,18 @@
 .navMenuHover:hover {
   color: silver;
 }
+
+.photoHover:hover>.photo {
+  filter: brightness(0.7);
+}
+
+.photoHover:hover>.utilityContainer {
+  visibility: visible;
+}
+
+.utilityContainer {
+  visibility: hidden;
+}
+.photoHover {
+  cursor: zoom-in;
+}
