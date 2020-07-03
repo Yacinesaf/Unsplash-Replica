@@ -1,5 +1,5 @@
 const initialState = {
-  photoes: [],
+  photos: [],
   fetching: true
 }
 
@@ -7,9 +7,9 @@ export default function (state = initialState, action) {
   switch (action.type) {
     default: return state
 
-    case 'SET_PHOTOES':
-      return { ...state, photoes: action.payload }
-    case 'SET_FETCHING_PHOTOES':
+    case 'SET_PHOTOS':
+      return { ...state, photos: action.payload }
+    case 'SET_FETCHING_PHOTOS':
       return { ...state, fetching: action.payload }
   }
 }

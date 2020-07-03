@@ -10,9 +10,9 @@ export const getHeaderImage = () => dispatch => {
 }
 
 export const getPhotoes = () => dispatch => {
-  dispatch({ type: 'SET_FETCHING_PHOTOES', payload: true })
+  dispatch({ type: 'SET_FETCHING_PHOTOS', payload: true })
   return getPictures().then(res => {
-    dispatch({ type: 'SET_PHOTOES', payload: res })
-    dispatch({ type: 'SET_FETCHING_PHOTOES', payload: false })
+    dispatch({ type: 'SET_PHOTOS', payload: res })
+    dispatch({ type: 'SET_FETCHING_PHOTOS', payload: false })
   })
 }

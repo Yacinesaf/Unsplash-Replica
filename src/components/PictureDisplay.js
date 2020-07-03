@@ -63,7 +63,7 @@ class PictureDisplay extends Component {
 }
 
 const mapStateToProps = state => ({
-  photos: state.photos.photoes,
+  photos: state.photos.photos,
   fetchingPhotos: state.photos.fetching
 })
 
