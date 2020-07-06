@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getPhotoes } from '../reduxStore/actions'
-import { Grid, Avatar, Typography, Dialog, DialogTitle, DialogActions, DialogContent, Button } from '@material-ui/core'
+import { getPhotos, getRelatedCollectionPhotos } from '../reduxStore/actions'
+import { Grid, Avatar, Typography, Dialog, Chip } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import '../styles.css'
-
+import ShareIcon from '@material-ui/icons/Share';
+import InfoIcon from '@material-ui/icons/Info';
+import Photos from './Photos';
 
 class PictureDisplay extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class PictureDisplay extends Component {
       name: null,
       profileImg: null,
       img: null,
+      isPhotoZoomed: false,
     }
   }
 
@@ -36,7 +38,8 @@ class PictureDisplay extends Component {
   }
 
   componentDidMount() {
-    this.props.getPhotoes()
+    this.props.getPhotos()
+    this.props.getRelatedCollectionPhotos()
   }
 
   photosDivision = () => {
@@ -61,194 +64,41 @@ class PictureDisplay extends Component {
     return result
   }
 
+  collectionPhotosSpliter = () => {
+    var perChunk = 3
+
+    var inputArray = this.props.collectionPhotos
+
+    var result = inputArray.reduce((resultArray, item, index) => {
+      const chunkIndex = Math.floor(index / perChunk)
+
+      if (!resultArray[chunkIndex]) {
+        resultArray[chunkIndex] = []
+      }
+
+      resultArray[chunkIndex].push(item)
+
+      return resultArray
+    }, [])
+    return result
+  }
+
   render() {
+    console.log(this.collectionPhotosSpliter())
     return (
       <div style={{ paddingTop: 30 }}>
         {this.props.fetchingPhotos || !this.photosDivision().flat().length ? null :
           <Grid container justify='center'>
             <Grid item xs={6}>
-              <Grid container >
-                <Grid item xs={4} style={{ padding: 7 }}>
-                  {this.photosDivision()[0].map((x, i) => (
-                    <div className='photoHover' key={i} style={{ padding: 7, position: 'relative' }}>
-                      <img onClick={() => {
-                        this.setInfo(x.user.name, x.user.profile_image.medium, x.urls.raw);
-                        this.openDialog();
-                      }}
-                        className='photo' key={i} src={x.urls.raw} alt='s' style={{ width: '100%' }} />
-                      <div className='utilityContainer'>
-                        <div style={{ position: 'absolute', top: 15, right: 15, display: 'flex', alignItems: 'center' }}>
-                          <div
-                            style={{
-                              cursor: 'pointer',
-                              padding: '3px 6px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              backgroundColor: 'white',
-                              color: 'darkgray',
-                              margin: 5,
-                              borderRadius: 2
-                            }}>
-                            <AddIcon style={{ fontSize: 12 }} />
-                          </div>
-                          <div
-                            style={{
-                              cursor: 'pointer',
-                              padding: '3px 6px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              backgroundColor: 'white',
-                              color: 'darkgrey',
-                              margin: 5,
-                              borderRadius: 2
-                            }}>
-                            <FavoriteIcon style={{ fontSize: 12 }} />
-                          </div>
-                        </div>
-                        <div
-                          style={{
-                            cursor: 'pointer',
-                            padding: '3px 6px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            backgroundColor: 'white',
-                            color: 'darkgrey',
-                            borderRadius: 2,
-                            position: 'absolute',
-                            bottom: 20,
-                            right: 20,
-                          }}>
-                          <ArrowDownwardIcon style={{ fontSize: 12 }} />
-                        </div>
-                        <div style={{ position: 'absolute', bottom: 20, left: 20, display: 'flex', alignItems: 'center' }}>
-                          <Avatar alt='profile image' src={x.user.profile_image.medium} style={{ height: 24, width: 24, cursor: 'pointer' }} />
-                          <Typography variant='caption' style={{ color: 'white', fontWeight: 400, paddingLeft: 10 }}>{x.user.name}</Typography>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Grid>
-                <Grid item xs={4} style={{ padding: 7 }}>
-                  {this.photosDivision()[1].map((x, i) => (
-                    <div className='photoHover' key={i} style={{ padding: 7, position: 'relative' }}>
-                      <img className='photo' key={i} src={x.urls.raw} alt='s' style={{ width: '100%' }} />
-                      <div className='utilityContainer'>
-                        <div style={{ position: 'absolute', top: 15, right: 15, display: 'flex', alignItems: 'center' }}>
-                          <div
-                            style={{
-                              cursor: 'pointer',
-                              padding: '3px 6px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              backgroundColor: 'white',
-                              color: 'darkgray',
-                              margin: 5,
-                              borderRadius: 2
-                            }}>
-                            <AddIcon style={{ fontSize: 12 }} />
-                          </div>
-                          <div
-                            style={{
-                              cursor: 'pointer',
-                              padding: '3px 6px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              backgroundColor: 'white',
-                              color: 'darkgrey',
-                              margin: 5,
-                              borderRadius: 2
-                            }}>
-                            <FavoriteIcon style={{ fontSize: 12 }} />
-                          </div>
-                        </div>
-                        <div
-                          style={{
-                            cursor: 'pointer',
-                            padding: '3px 6px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            backgroundColor: 'white',
-                            color: 'darkgrey',
-                            borderRadius: 2,
-                            position: 'absolute',
-                            bottom: 20,
-                            right: 20,
-                          }}>
-                          <ArrowDownwardIcon style={{ fontSize: 12 }} />
-                        </div>
-                        <div style={{ position: 'absolute', bottom: 20, left: 20, display: 'flex', alignItems: 'center' }}>
-                          <Avatar alt='profile image' src={x.user.profile_image.medium} style={{ height: 24, width: 24, cursor: 'pointer' }} />
-                          <Typography variant='caption' style={{ color: 'white', fontWeight: 400, paddingLeft: 10 }}>{x.user.name}</Typography>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Grid>
-                <Grid item xs={4} style={{ padding: 7 }}>
-                  {this.photosDivision()[2].map((x, i) => (
-                    <div className='photoHover' key={i} style={{ padding: 7, position: 'relative' }}>
-                      <img className='photo' src={x.urls.raw} alt='s' style={{ width: '100%' }} />
-                      <div className='utilityContainer'>
-                        <div style={{ position: 'absolute', top: 15, right: 15, display: 'flex', alignItems: 'center' }}>
-                          <div
-                            style={{
-                              cursor: 'pointer',
-                              padding: '3px 6px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              backgroundColor: 'white',
-                              color: 'darkgray',
-                              margin: 5,
-                              borderRadius: 2
-                            }}>
-                            <AddIcon style={{ fontSize: 12 }} />
-                          </div>
-                          <div
-                            style={{
-                              cursor: 'pointer',
-                              padding: '3px 6px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              backgroundColor: 'white',
-                              color: 'darkgrey',
-                              margin: 5,
-                              borderRadius: 2
-                            }}>
-                            <FavoriteIcon style={{ fontSize: 12 }} />
-                          </div>
-                        </div>
-                        <div
-                          style={{
-                            cursor: 'pointer',
-                            padding: '3px 6px',
-                            borderRadius: 2,
-                            display: 'flex',
-                            alignItems: 'center',
-                            backgroundColor: 'white',
-                            color: 'darkgrey',
-                            position: 'absolute',
-                            bottom: 20,
-                            right: 20,
-                          }}>
-                          <ArrowDownwardIcon style={{ fontSize: 12 }} />
-                        </div>
-                        <div style={{ position: 'absolute', bottom: 20, left: 20, display: 'flex', alignItems: 'center' }}>
-                          <Avatar alt='profile image' src={x.user.profile_image.medium} style={{ height: 24, width: 24, cursor: 'pointer' }} />
-                          <Typography variant='caption' style={{ color: 'white', fontWeight: 400, paddingLeft: 10 }}>{x.user.name}</Typography>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Grid>
-              </Grid>
+              <Photos photosDivision={this.photosDivision} setInfo={this.setInfo} openDialog={this.openDialog} isDialogOpen={this.state.isDialogOpen} />
             </Grid>
           </Grid>
         }
-        <Dialog maxWidth='lg' onClose={this.closeDialog} open={this.state.isDialogOpen} >
-          <Grid container justify='center' >
-            <Grid item xs={11} style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Avatar alt='profile image' src={this.state.profileImg} style={{ height: 24, width: 24, cursor: 'pointer' }} />
+        <Dialog fullWidth maxWidth='lg' onClose={this.closeDialog} open={this.state.isDialogOpen} >
+          <Grid container justify='center' style={{ padding: 20 }} >
+            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+                <Avatar alt='profile image' src={this.state.profileImg} style={{ height: 32, width: 32, cursor: 'pointer', border: '0.3px solid lightgrey' }} />
                 <Typography variant='caption' style={{ color: 'black', fontWeight: 400, paddingLeft: 10 }}>{this.state.name}</Typography>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -258,10 +108,10 @@ class PictureDisplay extends Component {
                     color: 'grey',
                     display: 'flex',
                     alignItems: 'center',
-                    border: '0.5px solid grey',
-                    borderRadius: 2,
+                    border: '0.2px solid lightgrey',
+                    borderRadius: 3,
                     cursor: 'pointer',
-                    marginRight : 8
+                    marginRight: 8
                   }}>
                   <AddIcon fontSize='small' />
                 </div>
@@ -270,20 +120,72 @@ class PictureDisplay extends Component {
                     padding: '3px 6px',
                     color: 'grey',
                     cursor: 'pointer',
-                    border: '0.5px solid grey',
-                    borderRadius: 2,
+                    border: '0.2px solid lightgrey',
+                    borderRadius: 3,
                     display: 'flex',
                     alignItems: 'center',
+                    marginRight: 8
                   }}>
                   <FavoriteIcon fontSize='small' />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <p style={{ margin: 0, color: 'grey' }}>
+                <div
+                  style={{
+                    padding: '2px 6px',
+                    color: 'grey',
+                    cursor: 'pointer',
+                    border: '0.2px solid lightgrey',
+                    borderRadius: 3,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Typography variant='subtitle2' style={{ fontWeight: 400 }}>
                     Download
-                  </p>
-                  <ExpandMoreIcon fontSize='small' />
+                </Typography>
                 </div>
               </div>
+            </Grid>
+            <Grid item xs={this.state.isPhotoZoomed ? 12 : 9} style={{ padding: 15 }}>
+              <img onClick={() => this.setState({ isPhotoZoomed: !this.state.isPhotoZoomed })} src={this.state.img} alt='img' style={{ width: '100%', cursor: this.state.isPhotoZoomed ? 'zoom-out' : 'zoom-in' }} />
+            </Grid>
+            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', alignItems: 'center', border: '0.2px solid lightgrey', borderRadius: 3, padding: '3px 6px', marginRight: 8 }}>
+                <ShareIcon style={{ color: 'grey', fontSize: 16, paddingRight: 5 }} />
+                <Typography variant='subtitle2' style={{ color: 'grey', fontWeight: 400 }}>Share</Typography>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', border: '0.2px solid lightgrey', borderRadius: 3, padding: '3px 6px' }}>
+                <InfoIcon style={{ color: 'grey', fontSize: 16, paddingRight: 5 }} />
+                <Typography variant='subtitle2' style={{ color: 'grey', fontWeight: 400 }}>Info</Typography>
+              </div>
+            </Grid>
+            <Grid item xs={9} style={{ padding: '80px 15px' }}>
+              <Typography style={{ color: 'grey', paddingBottom: 20 }}>Related photos</Typography>
+              <Photos photosDivision={this.photosDivision} setInfo={this.setInfo} openDialog={this.openDialog} isDialogOpen={this.state.isDialogOpen} />
+              <Typography style={{ color: 'grey' }}>Related collections</Typography>
+              <Grid container>
+                {this.collectionPhotosSpliter().map((x, i) => (
+                  <Grid item xs={4} style={{ height: 220 }} >
+                    <Grid container>
+                      <Grid item xs={8}>
+                        <img src={x[0].urls.raw} alt='img' style={{ width: '100%', height: 220, borderRadius: '3px 0px 0px 3px' }} />
+                      </Grid>
+                      <Grid item xs={4} style={{ height: 220 }}>
+                        <div style={{ height: '100%', paddingLeft: 3 }}>
+                          <img src={x[1].urls.raw} alt='img' style={{ width: '100%', height: 110, borderRadius: '0px 3px 0px 0px' }} />
+                          <img src={x[2].urls.raw} alt='img' style={{ width: '100%', height: 110, borderRadius: '0px 0px 3px 0px' }} />
+                        </div>
+                      </Grid>
+                      <Typography variant='subtitle2' style={{ color: 'grey', padding: '10px 0px' }}>SPACECAPADES</Typography>
+                      <Typography variant='subtitle2' style={{ color: 'grey' }}>1100 photos created by Susan H.</Typography>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0px' }}>
+                        <Chip size='small' label='Spacecapades' style={{ borderRadius: 0, color: 'black' }} />
+                        <Chip size='small' label='Space' style={{ borderRadius: 0, color: 'black' }} />
+                        <Chip size='small' label='Star' style={{ borderRadius: 0, color: 'black' }} />
+                      </div>
+                    </Grid>
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
           </Grid>
         </Dialog>
@@ -294,7 +196,8 @@ class PictureDisplay extends Component {
 
 const mapStateToProps = state => ({
   photos: state.photos.photos,
-  fetchingPhotos: state.photos.fetching
+  fetchingPhotos: state.photos.fetching,
+  collectionPhotos: state.photos.collectionPhotos
 })
 
-export default connect(mapStateToProps, { getPhotoes })(PictureDisplay)
+export default connect(mapStateToProps, { getPhotos, getRelatedCollectionPhotos })(PictureDisplay)

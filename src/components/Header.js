@@ -31,7 +31,6 @@ class Header extends Component {
                 background: 'rgba(0, 0, 0, 0.4)',
                 height: '100%'
               }}
-              justify={this.props.smDown ? 'center' : ''}
             >
               {this.props.smDown ? null :
                 <Grid item xs={3} style={{ display: 'flex', alignItems: 'flex-end' }}>

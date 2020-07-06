@@ -1,4 +1,4 @@
-import { getRandomImg, getPictures } from '../services/apiEndpoints'
+import { getRandomImg, getPictures, getRelatedCollectionPictures } from '../services/apiEndpoints'
 
 export const getHeaderImage = () => dispatch => {
   dispatch({ type: 'SET_FETCHING_HEADER', payload: true })
@@ -8,8 +8,15 @@ export const getHeaderImage = () => dispatch => {
     dispatch({ type: 'SET_FETCHING_HEADER', payload: false })
   })
 }
+export const getRelatedCollectionPhotos = () => dispatch => {
+  dispatch({ type: 'SET_FETCHING_PHOTOS', payload: true })
+  return getRelatedCollectionPictures().then(res => {
+    dispatch({ type: 'SET_COLLECTION_PHOTOS', payload: res })
+    dispatch({ type: 'SET_FETCHING_PHOTOS', payload: false })
+  })
+}
 
-export const getPhotoes = () => dispatch => {
+export const getPhotos = () => dispatch => {
   dispatch({ type: 'SET_FETCHING_PHOTOS', payload: true })
   return getPictures().then(res => {
     dispatch({ type: 'SET_PHOTOS', payload: res })
