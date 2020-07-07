@@ -44,7 +44,8 @@ class Header extends Component {
                   justifyContent: this.props.smDown ? '' : 'center',
                   flexDirection: 'column',
                   position: 'relative',
-                  paddingTop: this.props.smDown ? 30 : 0
+                  paddingTop: this.props.smDown ? 30 : 0,
+                  paddingLeft : this.props.smDown ? 10 : 0
                 }}>
                 <Typography style={{ color: 'white', fontWeight: 600 }} variant={this.props.smDown ? 'h6' : 'h3'}>Unsplash</Typography>
                 <div style={{ color: 'white', padding: '20px 0px' }}>

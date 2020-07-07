@@ -4,7 +4,6 @@ import { getPhotos, getRelatedCollectionPhotos } from '../reduxStore/actions'
 import { Grid, Avatar, Typography, Dialog, Chip } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import '../styles.css'
 import ShareIcon from '@material-ui/icons/Share';
 import InfoIcon from '@material-ui/icons/Info';
@@ -84,13 +83,12 @@ class PictureDisplay extends Component {
   }
 
   render() {
-    console.log(this.collectionPhotosSpliter())
     return (
       <div style={{ paddingTop: 30 }}>
         {this.props.fetchingPhotos || !this.photosDivision().flat().length ? null :
           <Grid container justify='center'>
-            <Grid item xs={6}>
-              <Photos photosDivision={this.photosDivision} setInfo={this.setInfo} openDialog={this.openDialog} isDialogOpen={this.state.isDialogOpen} />
+            <Grid item xs={12} md={8} lg={6}>
+              <Photos photosDivision={this.photosDivision} setInfo={this.setInfo} openDialog={this.openDialog} isDialogOpen={this.state.isDialogOpen} photoList ={this.props.photos} />
             </Grid>
           </Grid>
         }
@@ -161,15 +159,15 @@ class PictureDisplay extends Component {
             <Grid item xs={9} style={{ padding: '80px 15px' }}>
               <Typography style={{ color: 'grey', paddingBottom: 20 }}>Related photos</Typography>
               <Photos photosDivision={this.photosDivision} setInfo={this.setInfo} openDialog={this.openDialog} isDialogOpen={this.state.isDialogOpen} />
-              <Typography style={{ color: 'grey' }}>Related collections</Typography>
+              <Typography style={{ color: 'grey', paddingBottom: 20, paddingTop: 40 }}>Related collections</Typography>
               <Grid container>
                 {this.collectionPhotosSpliter().map((x, i) => (
-                  <Grid item xs={4} style={{ height: 220 }} >
+                  <Grid key={i} item xs={4} style={{ height: 220, paddingRight: 10 }} >
                     <Grid container>
-                      <Grid item xs={8}>
+                      <Grid item xs={8} style={{ overflow: 'hidden' }}>
                         <img src={x[0].urls.raw} alt='img' style={{ width: '100%', height: 220, borderRadius: '3px 0px 0px 3px' }} />
                       </Grid>
-                      <Grid item xs={4} style={{ height: 220 }}>
+                      <Grid item xs={4} style={{ height: 220, overflow: 'hidden' }}>
                         <div style={{ height: '100%', paddingLeft: 3 }}>
                           <img src={x[1].urls.raw} alt='img' style={{ width: '100%', height: 110, borderRadius: '0px 3px 0px 0px' }} />
                           <img src={x[2].urls.raw} alt='img' style={{ width: '100%', height: 110, borderRadius: '0px 0px 3px 0px' }} />
@@ -177,15 +175,21 @@ class PictureDisplay extends Component {
                       </Grid>
                       <Typography variant='subtitle2' style={{ color: 'grey', padding: '10px 0px' }}>SPACECAPADES</Typography>
                       <Typography variant='subtitle2' style={{ color: 'grey' }}>1100 photos created by Susan H.</Typography>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', padding: '10px 0px' }}>
                         <Chip size='small' label='Spacecapades' style={{ borderRadius: 0, color: 'black' }} />
-                        <Chip size='small' label='Space' style={{ borderRadius: 0, color: 'black' }} />
+                        <Chip size='small' label='Space' style={{ borderRadius: 0, color: 'black', margin: '0px 5px' }} />
                         <Chip size='small' label='Star' style={{ borderRadius: 0, color: 'black' }} />
                       </div>
                     </Grid>
                   </Grid>
                 ))}
               </Grid>
+              <div style={{paddingTop : 150}}>
+                <Typography style={{paddingBottom : 10}}>Related tags</Typography>
+                <Chip size='small' label='Spacecapades' style={{ borderRadius: 0, color: 'black' }} />
+                <Chip size='small' label='Space' style={{ borderRadius: 0, color: 'black', margin: '0px 5px' }} />
+                <Chip size='small' label='Star' style={{ borderRadius: 0, color: 'black' }} />
+              </div>
             </Grid>
           </Grid>
         </Dialog>
