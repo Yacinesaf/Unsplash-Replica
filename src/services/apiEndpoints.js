@@ -22,10 +22,18 @@ const getPictures = () => {
     .then(res => res.data)
 }
 
+const getPhotoById = (id) => {
+  return axios.get(`https://api.unsplash.com/photos/:${id}?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA`)
+    .then(res => {
+      return res.data
+    })
+}
+
 
 
 export {
   getRandomImg,
   getPictures,
-  getRelatedCollectionPictures
+  getRelatedCollectionPictures,
+  getPhotoById
 }

@@ -115,7 +115,7 @@ class Navbar extends Component {
                   </div>
                 }
               </Grid>
-              <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              {this.props.location.pathname === '/' ? <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ borderRight: '1px solid gray' }}>
                   <Typography variant='body1' style={{ color: 'black', paddingRight: this.props.smDown ? 20 : 34 }}>Editorial</Typography>
                 </div>
@@ -124,7 +124,7 @@ class Navbar extends Component {
                     <Tab key={i} label={x} style={{ color: 'black', fontSize: 12, minWidth: 'initial' }} />
                   ))}
                 </Tabs>
-              </Grid>
+              </Grid> : null}
             </Grid>
             <Menu
               style={{}}
@@ -156,13 +156,13 @@ class Navbar extends Component {
               </div>
               {this.props.smDown ?
                 <Grid container style={{ padding: 16 }}>
-                  <Grid item xs={6} style={{paddingRight : 8}}>
+                  <Grid item xs={6} style={{ paddingRight: 8 }}>
                     <Button variant='contained' style={{ textTransform: 'none', width: '100%' }} >Login</Button>
                   </Grid>
-                  <Grid item xs={6} style={{paddingLeft : 8}}>
+                  <Grid item xs={6} style={{ paddingLeft: 8 }}>
                     <Button variant='contained' style={{ textTransform: 'none', color: 'white', backgroundColor: '#3cb46e', width: '100%' }} >Join free</Button>
                   </Grid>
-                  <Grid item xs={12} style={{paddingTop : 16}}>
+                  <Grid item xs={12} style={{ paddingTop: 16 }}>
                     <Button variant='contained' style={{ textTransform: 'none', width: '100%' }} >Submit a photo</Button>
                   </Grid>
                 </Grid>

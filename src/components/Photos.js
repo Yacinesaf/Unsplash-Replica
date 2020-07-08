@@ -9,7 +9,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
 
-function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList, setZoomedPhoto }) {
+function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }) {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -23,8 +23,8 @@ function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList, 
                 <Avatar alt='profile image' src={x.user.profile_image.medium} style={{ height: 32, width: 32, border: '0.2px solid lightgrey' }} />
                 <Typography variant='subtitle2' style={{ color: 'darkgrey', fontWeight: 400, paddingLeft: 10 }}>{x.user.name}</Typography>
               </div>
-              <Link to={`/${x.id}`}>
-                <img onClick={()=>{setZoomedPhoto(x)}} src={x.urls.raw} alt='s' style={{ width: '100%' }} />
+              <Link to={`/photos/${x.id}`}>
+                <img src={x.urls.raw} alt='s' style={{ width: '100%' }} />
               </Link>
             </Grid>
             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 10 }}>
@@ -75,7 +75,7 @@ function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList, 
         ))
         :
         <Grid container>
-          <Grid item xs={4} >
+          <Grid item xs={4}>
             {photosDivision()[0].map((x, i) => (
               <div className='photoHover' key={i} style={{ position: 'relative', paddingBottom: 15 }}>
                 <img onClick={() => {

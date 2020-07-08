@@ -12,17 +12,14 @@ function App() {
   const location = useLocation();
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const [photoInfo, setPhotoInfo] = React.useState({})
-  
-  const setZoomedPhoto = (obj) => {
-    setPhotoInfo(obj)
-  }
+
+
 
   return (
     <div>
-      <Navbar smDown={smDown} />
-      <Route exact path='/' render={(props) => <PictureDisplay {...props} smDown={smDown} setZoomedPhoto={setZoomedPhoto} />} />
-      <Route exact path='/:id' render={(props) => <PhotoMobilePage {...props} smDown={smDown} photoInfo={photoInfo} />} />
+      <Navbar smDown={smDown} location={location} />
+      <Route exact path='/' render={(props) => <PictureDisplay {...props} smDown={smDown} />} />
+      <Route exact path='/photos/:id' render={(props) => <PhotoMobilePage {...props} smDown={smDown} location={location} />} />
     </div>
   );
 }
