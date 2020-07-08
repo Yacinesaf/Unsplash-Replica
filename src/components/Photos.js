@@ -6,10 +6,10 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import '../styles.css'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 
-
-function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }) {
+function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList, setZoomedPhoto }) {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -17,13 +17,15 @@ function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }
     <div>
       {smDown ?
         photoList.map((x, i) => (
-          <Grid container style={{ padding: '20px 0px' }}>
+          <Grid key={i} container style={{ padding: '20px 0px' }}>
             <Grid item xs={12}>
-              <div style={{ display: 'flex', alignItems: 'center', padding : 10 }}>
-                <Avatar alt='profile image' src={x.user.profile_image.medium} style={{ height: 32, width: 32, border : '0.2px solid lightgrey'}} />
+              <div style={{ display: 'flex', alignItems: 'center', padding: 10 }}>
+                <Avatar alt='profile image' src={x.user.profile_image.medium} style={{ height: 32, width: 32, border: '0.2px solid lightgrey' }} />
                 <Typography variant='subtitle2' style={{ color: 'darkgrey', fontWeight: 400, paddingLeft: 10 }}>{x.user.name}</Typography>
               </div>
-              <img key={i} src={x.urls.raw} alt='s' style={{ width: '100%' }} />
+              <Link to={`/${x.id}`}>
+                <img onClick={()=>{setZoomedPhoto(x)}} src={x.urls.raw} alt='s' style={{ width: '100%' }} />
+              </Link>
             </Grid>
             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -138,7 +140,12 @@ function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }
           <Grid item xs={4} style={{ padding: '0px 15px' }}>
             {photosDivision()[1].map((x, i) => (
               <div className='photoHover' key={i} style={{ position: 'relative', paddingBottom: 15 }}>
-                <img className='photo' key={i} src={x.urls.raw} alt='s' style={{ width: '100%' }} />
+                <img onClick={() => {
+                  if (!isDialogOpen) {
+                    setInfo(x.user.name, x.user.profile_image.medium, x.urls.raw);
+                    openDialog();
+                  }
+                }} className='photo' key={i} src={x.urls.raw} alt='s' style={{ width: '100%' }} />
                 <div className='utilityContainer'>
                   <div style={{ position: 'absolute', top: 5, right: 5, display: 'flex', alignItems: 'center' }}>
                     <div
@@ -194,7 +201,12 @@ function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }
           <Grid item xs={4}>
             {photosDivision()[2].map((x, i) => (
               <div className='photoHover' key={i} style={{ position: 'relative', paddingBottom: 15 }}>
-                <img className='photo' src={x.urls.raw} alt='s' style={{ width: '100%' }} />
+                <img onClick={() => {
+                  if (!isDialogOpen) {
+                    setInfo(x.user.name, x.user.profile_image.medium, x.urls.raw);
+                    openDialog();
+                  }
+                }} className='photo' src={x.urls.raw} alt='s' style={{ width: '100%' }} />
                 <div className='utilityContainer'>
                   <div style={{ position: 'absolute', top: 5, right: 5, display: 'flex', alignItems: 'center' }}>
                     <div
