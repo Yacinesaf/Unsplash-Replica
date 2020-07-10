@@ -9,10 +9,10 @@ export const getHeaderImage = () => dispatch => {
   })
 }
 export const getRelatedCollectionPhotos = () => dispatch => {
-  dispatch({ type: 'SET_FETCHING_PHOTOS', payload: true })
+  dispatch({ type: 'SET_FETCHING_COLLECTION_PHOTOS', payload: true })
   return getRelatedCollectionPictures().then(res => {
     dispatch({ type: 'SET_COLLECTION_PHOTOS', payload: res })
-    dispatch({ type: 'SET_FETCHING_PHOTOS', payload: false })
+    dispatch({ type: 'SET_FETCHING_COLLECTION_PHOTOS', payload: false })
   })
 }
 
@@ -25,8 +25,9 @@ export const getPhotos = () => dispatch => {
 }
 
 export const getImageById = (id) => dispatch => {
+  dispatch({ type: 'SET_FETCHING_PHOTO', payload: true })
   return getPhotoById(id).then(res => {
-    console.log("res", res)
     dispatch({ type: 'SET_PHOTO_BY_ID', payload: res })
+    dispatch({ type: 'SET_FETCHING_PHOTO', payload: false })
   })
 }

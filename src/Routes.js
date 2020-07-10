@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core/styles';
 import PictureDisplay from './components/PictureDisplay';
 import { useLocation } from 'react-router'
 import { Route } from 'react-router-dom';
-import PhotoMobilePage from './components/PhotoMobilePage';
+import PhotoCloseUpMobile from './components/PhotoCloseUpMobile';
 
 function App() {
   const location = useLocation();
@@ -18,7 +18,7 @@ function App() {
     <div>
       <Navbar smDown={smDown} location={location} />
       <Route exact path='/' render={(props) => <PictureDisplay {...props} smDown={smDown} />} />
-      <Route exact path='/photos/:id' render={(props) => <PhotoMobilePage {...props} smDown={smDown} location={location} />} />
+      <Route exact path='/photos/:id' render={(props) => <PhotoCloseUpMobile {...props} smDown={smDown} location={location} />} />
     </div>
   );
 }

@@ -23,7 +23,7 @@ const getPictures = () => {
 }
 
 const getPhotoById = (id) => {
-  return axios.get(`https://api.unsplash.com/photos/:${id}?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA`)
+  return axios.get(`https://api.unsplash.com/photos/${id}?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA`)
     .then(res => {
       return res.data
     })

@@ -147,7 +147,7 @@ class PictureDisplay extends Component {
                 <Photos photosDivision={this.photosDivision} setInfo={this.setInfo} openDialog={this.openDialog} isDialogOpen={this.state.isDialogOpen} />
                 <Typography style={{ color: 'grey', paddingBottom: 20, paddingTop: 40 }}>Related collections</Typography>
                 <RelatedCollection collectionPhotos={this.props.collectionPhotos} />
-                <div style={{ paddingTop: 150 }}>
+                <div style={{ paddingTop: 100 }}>
                   <Typography style={{ paddingBottom: 10 }}>Related tags</Typography>
                   <Chip size='small' label='Spacecapades' style={{ borderRadius: 0, color: 'black' }} />
                   <Chip size='small' label='Space' style={{ borderRadius: 0, color: 'black', margin: '0px 5px' }} />
@@ -164,7 +164,7 @@ class PictureDisplay extends Component {
 
 const mapStateToProps = state => ({
   photos: state.photos.photos,
-  fetchingPhotos: state.photos.fetching,
+  fetchingPhotos: state.photos.fetchingPhotos,
   collectionPhotos: state.photos.collectionPhotos
 })
 

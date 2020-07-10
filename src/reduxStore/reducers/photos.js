@@ -2,7 +2,9 @@ const initialState = {
   photos: [],
   collectionPhotos: [],
   photoById: null,
-  fetching: true
+  fetchingPhotos: true,
+  fetchingCollectionPhotos: true,
+  fetchingPhoto: true,
 }
 
 export default function (state = initialState, action) {
@@ -16,6 +18,10 @@ export default function (state = initialState, action) {
     case 'SET_COLLECTION_PHOTOS':
       return { ...state, collectionPhotos: action.payload }
     case 'SET_FETCHING_PHOTOS':
-      return { ...state, fetching: action.payload }
+      return { ...state, fetchingPhotos: action.payload }
+    case 'SET_FETCHING_PHOTO':
+      return { ...state, fetchingPhoto: action.payload }
+    case 'SET_FETCHING_COLLECTION_PHOTOS':
+      return { ...state, fetchingCollectionPhotos: action.payload }
   }
 }
