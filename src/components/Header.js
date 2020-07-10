@@ -1,14 +1,30 @@
 import React, { Component } from 'react'
-import { getHeaderImage } from '../reduxStore/actions'
+import { getHeaderImage, getPhotosBySearch } from '../reduxStore/actions'
 import { connect } from 'react-redux'
 import { Grid, Paper, InputBase, Typography } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import squarespace from '../assets/squarespace.png'
 
 class Header extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      search: null,
+    }
+  }
+
   componentDidMount() {
     this.props.getHeaderImage()
   }
+
+  handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      this.props.getPhotosBySearch(this.state.search)
+    }
+  }
+
+
   render() {
     return (
       <div>
@@ -45,7 +61,7 @@ class Header extends Component {
                   flexDirection: 'column',
                   position: 'relative',
                   paddingTop: this.props.smDown ? 30 : 0,
-                  paddingLeft : this.props.smDown ? 10 : 0
+                  paddingLeft: this.props.smDown ? 10 : 0
                 }}>
                 <Typography style={{ color: 'white', fontWeight: 600 }} variant={this.props.smDown ? 'h6' : 'h3'}>Unsplash</Typography>
                 <div style={{ color: 'white', padding: '20px 0px' }}>
@@ -67,6 +83,10 @@ class Header extends Component {
                     <SearchIcon style={{ color: 'gray', padding: '0px 10px' }} />
                     <InputBase
                       onClick={() => this.setState({ inputClicked: true })}
+                      onChange={(e) => {
+                        this.setState({ search: e.target.value });
+                      }}
+                      onKeyPress={this.handleKeyPress}
                       style={{ width: '100%', padding: '0px !important' }}
                       inputProps={{ placeholder: this.props.smDown ? 'Search photos' : 'Search free high-resolution photos', type: 'text' }}
                     />
@@ -77,9 +97,9 @@ class Header extends Component {
                 }
               </Grid>
               {this.props.smDown ? null :
-                <Grid item xs={3} style={{display : 'flex', alignItems :'flex-end', justifyContent :'flex-end', padding : 10}}>
-                  <div style={{ opacity: '0.7'}}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent : 'flex-end' }}>
+                <Grid item xs={3} style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', padding: 10 }}>
+                  <div style={{ opacity: '0.7' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
                       <img src={squarespace} alt='squarespace' height={14} width={18} />
                       <Typography variant='subtitle1' style={{ color: 'white', paddingLeft: 5, }}>SQUARESPACE</Typography>
                     </div>
@@ -100,4 +120,4 @@ const mapStateToProps = state => ({
   name: state.headerImg.name
 })
 
-export default connect(mapStateToProps, { getHeaderImage })(Header)
+export default connect(mapStateToProps, { getHeaderImage, getPhotosBySearch })(Header)

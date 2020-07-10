@@ -18,7 +18,11 @@ const getRelatedCollectionPictures = () => {
 }
 
 const getPictures = () => {
-  return axios.get('https://api.unsplash.com/photos/random?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA&query=nature&count=30&orientation=landscape')
+  return axios.get('https://api.unsplash.com/photos/random?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA&query=nature&count=30')
+    .then(res => res.data)
+}
+const getPicturesBySearch = (search) => {
+  return axios.get(`https://api.unsplash.com/photos/random?client_id=qeLswcEc5-He0IdtsRjuMiaslcpkfVgpO2jDNx5BTUA&query=${search}&count=30`)
     .then(res => res.data)
 }
 
@@ -35,5 +39,6 @@ export {
   getRandomImg,
   getPictures,
   getRelatedCollectionPictures,
-  getPhotoById
+  getPhotoById,
+  getPicturesBySearch
 }
