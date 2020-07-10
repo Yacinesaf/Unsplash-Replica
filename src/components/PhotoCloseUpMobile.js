@@ -78,7 +78,7 @@ class PhotoCloseUpMobile extends Component {
               >
                 <Typography variant='subtitle1' style={{ fontWeight: 400 }}>
                   Download
-           </Typography>
+                </Typography>
               </div>
             </Grid>
             <Grid item xs={12}>
