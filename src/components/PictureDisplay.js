@@ -10,6 +10,7 @@ import '../styles.css'
 import Photos from './Photos';
 import RelatedCollection from './RelatedCollection';
 import Header from './Header'
+import PhotoSkeleton from './PhotoSkeleton';
 
 class PictureDisplay extends Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class PictureDisplay extends Component {
       <div>
         <Header smDown={this.props.smDown} />
         <div style={{ paddingTop: 30 }}>
-          {this.props.fetchingPhotos || !this.photosDivision().flat().length ? null :
+          {this.props.fetchingPhotos ? <PhotoSkeleton /> :
             <Grid container justify='center'>
               <Grid item xs={12} md={8} lg={6}>
                 <Photos photosDivision={this.photosDivision} setInfo={this.setInfo} openDialog={this.openDialog} isDialogOpen={this.state.isDialogOpen} photoList={this.props.photos} />

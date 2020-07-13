@@ -12,7 +12,6 @@ export default function (state = initialState, action) {
     default: return state
 
     case 'SET_PHOTOS':
-      console.log(action.payload);
       return { ...state, photos: action.payload }
     case 'SET_PHOTO_BY_ID':
       return { ...state, photoById: action.payload }

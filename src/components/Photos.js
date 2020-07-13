@@ -7,6 +7,7 @@ import '../styles.css'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import empty from '../assets/empty.svg'
 
 
 function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }) {
@@ -15,7 +16,7 @@ function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }
 
   return (
     <div>
-      {smDown ?
+      {photosDivision().flat().length ? smDown ?
         photoList.map((x, i) => (
           <Grid key={i} container style={{ padding: '20px 0px' }}>
             <Grid item xs={12}>
@@ -258,6 +259,12 @@ function Photos({ photosDivision, setInfo, openDialog, isDialogOpen, photoList }
                 </div>
               </div>
             ))}
+          </Grid>
+        </Grid>
+        :
+        <Grid container justify='center'>
+          <Grid item xs={10}>
+            <img src={empty} alt='empty' /> 
           </Grid>
         </Grid>
       }

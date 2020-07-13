@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Grid, Paper, InputBase, Typography } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import squarespace from '../assets/squarespace.png'
+import Skeleton from '@material-ui/lab/Skeleton';
 
 class Header extends Component {
   constructor(props) {
@@ -28,12 +29,7 @@ class Header extends Component {
   render() {
     return (
       <div>
-        {this.props.isHeaderFetchingImg ? <div style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1534214526114-0ea4d47b04f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          height: this.props.smDown ? 210 : 550
-        }} /> :
+        {this.props.isHeaderFetchingImg ? <Skeleton variant='rect' animation='wave' style={{width : '100%', height : this.props.smDown ? 210 : 550}} /> :
           <div
             style={{
               backgroundImage: `url(${this.props.img})`,
